@@ -1,8 +1,25 @@
 // import React, { FormEvent } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import { LOGIN_USER } from "../graphql/Mutations";
+import { useMutation } from "@apollo/client";
 
 function LoginForm() {
-  const onSubmit = (data: FieldValues) => console.log(data);
+  const [loginUser, { error }] = useMutation(LOGIN_USER);
+
+  const onSubmit = async (data: FieldValues) => {
+    const result = await loginUser({
+      variables: {
+        email: data.email,
+        password: data.password,
+      },
+    });
+
+    console.log(result.data);
+
+    if (error) {
+      console.log(error);
+    }
+  };
 
   const { register, handleSubmit } = useForm();
   return (
