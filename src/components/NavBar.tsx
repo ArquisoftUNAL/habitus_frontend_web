@@ -1,3 +1,4 @@
+import React from "react";
 import logoImage from "../assets/Logo.svg";
 import userIcon from "../assets/user.png";
 import "./NavBar.css";
@@ -6,7 +7,13 @@ export const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
-        <img src={logoImage} alt="Habitus Logo" width="60" height="54" className="logo-image" />
+        <img
+          src={logoImage}
+          alt="Habitus Logo"
+          width="60"
+          height="54"
+          className="logo-image"
+        />
         <a className="navbar-brand text-white" href="#">
           Habitus
         </a>
@@ -44,7 +51,29 @@ export const NavBar = () => {
             </li>
           </ul>
         </div>
-        <img src={userIcon} alt="User icon" width="40" height="35" id="user-icon" />
+        <div className="dropdown-center">
+          <img
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            src={userIcon}
+            alt="User Icon"
+            width="30"
+            height="30"
+            id="user-icon"
+          />
+          <ul className="dropdown-menu">
+            <li>
+              <a className="dropdown-item" href="#">
+                Settings 
+              </a>
+            </li>
+            <li>
+              <a className="dropdown-item" href="#">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );

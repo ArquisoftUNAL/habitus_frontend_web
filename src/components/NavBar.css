@@ -3,16 +3,22 @@
 }
 
 .logo-image {
-    margin-right: 2rem;
+  margin-right: 2rem;
 }
 
 .nav-item {
-    color: #fff;
-    font-size: 1rem;
-    font-weight: 500;    
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 a:hover {
-    color: #ffc107 !important;
+  color: #ffc107 !important;
 }
 
+#user-icon {
+}
+
+.dropdown-center {
+  margin-right: 7.3rem;
+}
