@@ -1,0 +1,17 @@
+.custom-navbar {
+  background-color: #1f439e;
+}
+
+.logo-image {
+    margin-right: 2rem;
+}
+
+.nav-item {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;    
+}
+
+a:hover {
+    color: #ffc107 !important;
+}
