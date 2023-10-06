@@ -14,11 +14,12 @@ function LoginForm() {
       },
     });
 
-    console.log(result.data);
-
-    if (error) {
-      console.log(error);
+    // Store the token in local storage
+    if (result.data) {
+      localStorage.setItem("x-auth-key", result.data.loginUser);
     }
+
+    if (error) console.log(error);
   };
 
   const { register, handleSubmit } = useForm();
