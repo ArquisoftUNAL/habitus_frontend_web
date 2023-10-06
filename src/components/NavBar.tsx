@@ -1,5 +1,5 @@
-import logoImage from "../assets/Logo.svg"; // Import the image
-import userIcon from "../assets/user.svg"; // Import the image
+import logoImage from "../assets/Logo.svg";
+import userIcon from "../assets/user.png";
 import "./NavBar.css";
 
 export const NavBar = () => {
@@ -44,7 +44,7 @@ export const NavBar = () => {
             </li>
           </ul>
         </div>
-        <img src={userIcon} alt="User icon" width="40" height="35" />
+        <img src={userIcon} alt="User icon" width="40" height="35" id="user-icon" />
       </div>
     </nav>
   );
