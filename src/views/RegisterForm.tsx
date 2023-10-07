@@ -17,7 +17,7 @@ function RegisterForm() {
 
     // Store the token in local storage
     if (result.data) {
-      localStorage.setItem("x-auth-key", result.data.createUser.jwt);
+      localStorage.setItem("x-auth-token", result.data.createUser.jwt);
     }
 
     if (error) console.log(error);

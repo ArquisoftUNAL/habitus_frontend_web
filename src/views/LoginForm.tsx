@@ -1,4 +1,3 @@
-// import React, { FormEvent } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { LOGIN_USER } from "../graphql/Mutations";
 import { useMutation } from "@apollo/client";
@@ -16,7 +15,7 @@ function LoginForm() {
 
     // Store the token in local storage
     if (result.data) {
-      localStorage.setItem("x-auth-key", result.data.loginUser);
+      localStorage.setItem("x-auth-token", result.data.loginUser);
     }
 
     if (error) console.log(error);

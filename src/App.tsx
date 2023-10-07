@@ -1,43 +1,45 @@
 import {
   ApolloClient,
-  from,
-  HttpLink,
-  InMemoryCache,
   ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
 } from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
-// import LoginForm from "./views/LoginForm";
-// import RegisterForm from "./views/RegisterForm";
-import { NavBar } from "./components/NavBar";
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.forEach(({ message, locations, path }) => {
-      console.log(
-        `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-      );
-    });
-  }
-  if (networkError) {
-    console.log(`[Network error]: ${networkError}`);
-  }
+import { setContext } from "@apollo/client/link/context";
+import CreateHabitForm from "./views/CreateHabitForm";
+
+const httpLink = createHttpLink({
+  uri: "/graphql",
 });
 
-const link = from([
-  errorLink,
-  new HttpLink({ uri: "https://habitusgw-4rd4uo9b.b4a.run/" }),
-]);
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+
+  const token = localStorage.getItem("token");
+
+  // return the headers to the context so httpLink can read them
+
+  return {
+    headers: {
+      ...headers,
+
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
+});
 
 const client = new ApolloClient({
-  link: link,
+  link: authLink.concat(httpLink),
+
   cache: new InMemoryCache(),
 });
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <NavBar />
+      <CreateHabitForm />
     </ApolloProvider>
   );
 }
+
 export default App;
