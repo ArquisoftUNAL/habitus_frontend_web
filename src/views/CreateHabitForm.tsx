@@ -165,10 +165,10 @@ function CreateHabitForm() {
               Color
             </label>
             <select {...register("color")} id="color" className="form-control">
-              <option value="Red">Red</option>
-              <option value="Green">Green</option>
-              <option value="Blue">Blue</option>
-              <option value="Yellow">Yellow</option>
+              <option value="FF0000">Red</option>
+              <option value="00FF00">Green</option>
+              <option value="0000FF">Blue</option>
+              <option value="FFFF00">Yellow</option>
             </select>
           </div>
 
