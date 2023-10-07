@@ -27,21 +27,26 @@ function CreateHabitForm() {
     const is_favorite = isClick;
     const is_yn = habitType === "Yes / No";
 
-    const query = {
+    
+
+    const result = await CreateHabit({
       variables: {
-        name,
-        description,
+        name: "hola",
+        description: "aaa",
         is_favorite,
         is_yn,
-        color,
+        color: "yellow",
         units,
         goal,
         frequency_type,
         category: "7ad4eb3a-9178-4e88-8bdd-84e65ee93cb2",
       },
-    };
+    });
 
-    await CreateHabit(query);
+    console.log(result);
+
+    
+
     if (error) console.log(error);
   };
 
