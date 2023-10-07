@@ -3,6 +3,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import Heart from "react-animated-heart";
 import { CREATE_HABIT } from "../graphql/Mutations";
 import { useMutation } from "@apollo/client";
+import { NavBar } from "../components/NavBar";
+import "../styles/CreateHabitForm.css";
 
 function CreateHabitForm() {
   const [habitType, setHabitType] = useState("Yes / No"); // State for selected radio button
@@ -49,9 +51,10 @@ function CreateHabitForm() {
 
   return (
     <div>
-      <div className="btn-group btn-group-toggle" data-toggle="buttons">
-        <div className="form-type-selector">
-          <label className="btn btn-secondary active">
+      <NavBar />
+      <div className="">
+        <div className="form-type-selector" data-toggle="buttons">
+          <label className="btn btn-type-selector">
             <input
               type="radio"
               name="options"
@@ -62,7 +65,7 @@ function CreateHabitForm() {
             Yes / No
           </label>
 
-          <label className="btn btn-secondary">
+          <label className="btn btn-type-selector">
             <input
               type="radio"
               name="options"
@@ -72,8 +75,12 @@ function CreateHabitForm() {
             />{" "}
             Measurable
           </label>
+          <Heart
+            isClick={isClick}
+            onClick={() => setClick(!isClick)}
+            styles={"../styles/CreateHabitForm.css"}
+          />
         </div>
-        <Heart isClick={isClick} onClick={() => setClick(!isClick)} />
 
         <form className="create-habit-form" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3 create-habit-form__name">
@@ -126,6 +133,7 @@ function CreateHabitForm() {
               </div>
             </div>
           ) : null}
+          
 
           <div className="mb-3 create-habit-form__frequency-type">
             <label htmlFor="frequency_type" className="form-label">
