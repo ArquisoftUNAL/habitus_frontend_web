@@ -17,6 +17,7 @@ function CreateHabitForm() {
   const onSubmit = async (data: FieldValues) => {
     const { name, description, frequency_type, color } = data;
     let { goal, units } = data;
+    goal = parseInt(goal);
 
     // Format data for yes/no queries
     if (habitType === "Yes / No") {
@@ -26,8 +27,6 @@ function CreateHabitForm() {
 
     const is_favorite = isClick;
     const is_yn = habitType === "Yes / No";
-
-    
 
     const result = await CreateHabit({
       variables: {
@@ -44,8 +43,6 @@ function CreateHabitForm() {
     });
 
     console.log(result);
-
-    
 
     if (error) console.log(error);
   };
@@ -112,6 +109,7 @@ function CreateHabitForm() {
                   id="goal"
                   type="number"
                   className="form-control"
+                  step="0.01"
                 />
               </div>
 
