@@ -31,11 +31,11 @@ function CreateHabitForm() {
 
     const result = await CreateHabit({
       variables: {
-        name: "hola",
-        description: "aaa",
+        name,
+        description,
         is_favorite,
         is_yn,
-        color: "yellow",
+        color,
         units,
         goal,
         frequency_type,
