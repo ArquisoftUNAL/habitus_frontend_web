@@ -7,6 +7,7 @@ import {
 
 import { setContext } from "@apollo/client/link/context";
 import CreateHabitForm from "./views/CreateHabitForm";
+import LoginForm from "./views/LoginForm";
 
 const httpLink = createHttpLink({
   uri: "http://4.tcp.ngrok.io:12416/",
@@ -40,7 +41,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <CreateHabitForm />
+      <LoginForm />
     </ApolloProvider>
   );
 }

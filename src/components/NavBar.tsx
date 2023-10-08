@@ -1,6 +1,6 @@
 import logoImage from "../assets/Logo.svg";
 import userIcon from "../assets/user.png";
-import "./NavBar.css";
+import "../styles/NavBar.css";
 
 export const NavBar = () => {
   return (
@@ -63,7 +63,7 @@ export const NavBar = () => {
           <ul className="dropdown-menu">
             <li>
               <a className="dropdown-item" href="#">
-                Settings 
+                Settings
               </a>
             </li>
             <li>

@@ -1,0 +1,59 @@
+body {
+  height: 100vh;
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 80%;
+  border-radius: 1rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  background-color: #002b99 !important;
+  border: 1px solid #002b99;
+  width: 50%;
+}
+
+.login-image {
+  display: flex;
+  border-radius: 0.8rem;
+  padding-left: 1rem;
+  background-image: url("../assets/Spartans.png");
+  filter: grayscale(40%) brightness(75%) sepia(30%) hue-rotate(-25deg);
+  background-repeat: no-repeat;
+  width: 50%;
+  height: 90%;
+  background-size: cover;
+  box-shadow: 0 0 4px 0 rgba(9, 53, 212, 0.5);
+}
+
+.login-image__quote {
+  color: whitesmoke;
+  font-size: 2.2rem;
+  font-family: cursive;
+}
+
+.login-form__title {
+  font-size: 2.2rem;
+}
+
+.login-form__sub-title {
+  font-size: 1rem;
+}
