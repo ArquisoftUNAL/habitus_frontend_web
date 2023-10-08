@@ -62,6 +62,7 @@ function LoginForm() {
             <button disabled={false} className="btn btn-primary" type="submit">
               Login
             </button>
+            <p>Don't have an account? <a href="#">Create one now!</a></p>
           </form>
         </div>
       </div>

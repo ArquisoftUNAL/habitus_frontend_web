@@ -42,7 +42,7 @@ export const LoginNavBar = () => {
           <ul className="dropdown-menu">
             <li>
               <a className="dropdown-item" href="#">
-                Log in
+                Register
               </a>
             </li>
           </ul>
