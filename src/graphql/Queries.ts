@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER_HABITS = gql`
-  query ExampleQuery {
+  query GetUserHabits {
     habitsByUser {
       hab_name
       hab_created_at

@@ -1,5 +1,6 @@
-// import { useEffect, useState } from "react"
-
+import { useQuery } from "@apollo/client";
+import { GET_USER_HABITS } from "../graphql/Queries";
+import { Habit } from "../typeDefs";
 
 export const MainPageTable = () => {
   const last7Days = Array.from({ length: 7 }, (_, index) => {
@@ -8,13 +9,19 @@ export const MainPageTable = () => {
     return day.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   });
 
-  // const [users, setUsers] = useState([])
+  // Use the useQuery hook to fetch data
+  const { data, loading, error } = useQuery(GET_USER_HABITS);
 
-  // useEffect(() => {
-   
-  // }, [])
+  if (loading) {
+    return <p>Loading...</p>; // Display a loading indicator
+  }
 
+  if (error) {
+    console.error("Error fetching data:", error);
+    return <p>Error loading data.</p>; // Display an error message
+  }
 
+  const habitsByUser = data?.habitsByUser || []; // Ensure it's an array
 
   return (
     <table className="table">
@@ -28,22 +35,11 @@ export const MainPageTable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>@twitter</td>
-        </tr>
+        {habitsByUser.map((habit: Habit, index: number) => (
+          <tr key={index}>
+            <th scope="row">{habit.hab_name}</th>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
