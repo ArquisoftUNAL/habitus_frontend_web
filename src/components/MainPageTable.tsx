@@ -23,24 +23,28 @@ export const MainPageTable = () => {
 
   const habitsByUser = data?.habitsByUser || []; // Ensure it's an array
 
+  function renderLast7Days(last7Days: string[]) {
+    return last7Days.map((day, index) => (
+      <th key={index} scope="col">
+        {day}
+      </th>
+    ));
+  }
+
+  function renderHabits(habitsByUser: Habit[]) {
+    return habitsByUser.map((habit, index) => (
+      <tr key={index}>
+        <th scope="row">{habit.hab_name}</th>
+      </tr>
+    ));
+  }
+
   return (
     <table className="table">
       <thead>
-        <tr>
-          {last7Days.map((day, index) => (
-            <th key={index} scope="col">
-              {day}
-            </th>
-          ))}
-        </tr>
+        <tr>{renderLast7Days(last7Days)}</tr>
       </thead>
-      <tbody>
-        {habitsByUser.map((habit: Habit, index: number) => (
-          <tr key={index}>
-            <th scope="row">{habit.hab_name}</th>
-          </tr>
-        ))}
-      </tbody>
+      <tbody>{renderHabits(habitsByUser)}</tbody>
     </table>
   );
 };
