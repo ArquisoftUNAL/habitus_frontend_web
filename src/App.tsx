@@ -6,7 +6,7 @@ import {
 } from "@apollo/client";
 
 import { setContext } from "@apollo/client/link/context";
-import RegisterForm from "./views/RegisterForm";
+import { MainPageTable } from "./components/MainPageTable";
 
 const httpLink = createHttpLink({
   uri: "http://4.tcp.ngrok.io:12416/",
@@ -40,7 +40,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <RegisterForm />
+      <MainPageTable />
     </ApolloProvider>
   );
 }
