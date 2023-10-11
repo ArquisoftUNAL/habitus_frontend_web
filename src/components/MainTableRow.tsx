@@ -14,8 +14,8 @@ interface HabitOcurrence {
 }
 
 const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
-    console.log(last7Days);
-    
+  console.log(last7Days);
+
   const [ocurrences, setOcurrences] = useState<{ [key: string]: string }>({});
   const { data, loading, error } = useQuery(GET_HABIT_OCURRENCES, {
     variables: {
@@ -27,10 +27,10 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
 
   useEffect(() => {
     if (data !== undefined && !loading) {
-    //   if (habit.hab_id === "915859a5-d352-4a04-b8c9-f068a5d99b1c") debugger;
+      //   if (habit.hab_id === "915859a5-d352-4a04-b8c9-f068a5d99b1c") debugger;
       const ocurrencesDict: { [key: string]: string } = {};
       console.log(data);
-      
+
       data.habitdataByHabit.forEach((ocurrence: HabitOcurrence) => {
         ocurrencesDict[ocurrence.hab_dat_collected_at] =
           ocurrence.hab_dat_amount;
@@ -57,7 +57,16 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
 
   function RenderYesNoData() {
     return last7Days.map((day: string) => (
-      <td>{ocurrences?.[day] !== undefined ? "yes" : "no"}</td>
+      <td>
+        <input
+          className="form-check-input"
+          type="checkbox"
+          id="flexCheckDefault"
+          disabled={!(day === last7Days[0] || day === last7Days[1])}
+          checked={true}
+        />
+      </td>
+
     ));
   }
 
