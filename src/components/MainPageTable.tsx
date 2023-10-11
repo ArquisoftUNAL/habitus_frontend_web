@@ -1,16 +1,26 @@
 import { useQuery } from "@apollo/client";
 import { GET_USER_HABITS } from "../graphql/Queries";
 import { Habit } from "../typeDefs";
+import { useEffect, useState } from "react";
+import MainTableRow from "./MainTableRow";
 
 export const MainPageTable = () => {
   const last7Days = Array.from({ length: 7 }, (_, index) => {
     const day = new Date();
     day.setDate(day.getDate() - index);
-    return day.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    return day.toISOString().slice(0, 10);
   });
+
+  const [habits, setHabits] = useState<Habit[]>([]);
 
   // Use the useQuery hook to fetch data
   const { data, loading, error } = useQuery(GET_USER_HABITS);
+
+  useEffect(() => {
+    if (data !== undefined && !loading) {
+      setHabits(data.habitsByUser ?? []);
+    }
+  }, [data, loading]);
 
   if (loading) {
     return <p>Loading...</p>; // Display a loading indicator
@@ -21,7 +31,6 @@ export const MainPageTable = () => {
     return <p>Error loading data.</p>; // Display an error message
   }
 
-  const habitsByUser = data?.habitsByUser || []; // Ensure it's an array
 
   function renderLast7Days(last7Days: string[]) {
     return last7Days.map((day, index) => (
@@ -31,12 +40,10 @@ export const MainPageTable = () => {
     ));
   }
 
-  function renderHabits(habitsByUser: Habit[]) {
-    return habitsByUser.map((habit, index) => (
-      <tr key={index}>
-        <th scope="row">{habit.hab_name}</th>
-      </tr>
-    ));
+  function renderHabits() {
+    return habits.map((habit: Habit) => {
+      return <MainTableRow habit={habit} last7Days={last7Days} />;
+    });
   }
 
   return (
@@ -44,7 +51,7 @@ export const MainPageTable = () => {
       <thead>
         <tr>{renderLast7Days(last7Days)}</tr>
       </thead>
-      <tbody>{renderHabits(habitsByUser)}</tbody>
+      <tbody>{renderHabits()}</tbody>
     </table>
   );
 };

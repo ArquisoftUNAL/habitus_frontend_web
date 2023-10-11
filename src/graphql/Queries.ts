@@ -14,8 +14,8 @@ export const GET_USER_HABITS = gql`
   }
 `;
 
-export const GET_HABIT_DETAILS = gql`
-  query GetHabitDetails(
+export const GET_HABIT_OCURRENCES = gql`
+  query GetHabitOcurrences(
     $habitId: String!
     $startDate: String!
     $endDate: String!
