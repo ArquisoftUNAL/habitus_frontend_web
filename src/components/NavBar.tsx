@@ -13,7 +13,7 @@ export const NavBar = () => {
           height="54"
           className="logo-image"
         />
-        <a className="navbar-brand text-white" href="#">
+        <a className="navbar-brand text-white" href="/">
           Habitus
         </a>
         <button
@@ -33,18 +33,18 @@ export const NavBar = () => {
               <a
                 className="nav-link active text-white"
                 aria-current="page"
-                href="#"
+                href="/"
               >
                 Home
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link text-white" href="/">
                 Statistics
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
+              <a className="nav-link text-white" href="/">
                 Achievements
               </a>
             </li>

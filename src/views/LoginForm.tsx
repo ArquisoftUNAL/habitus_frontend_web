@@ -20,6 +20,9 @@ function LoginForm() {
       localStorage.setItem("x-auth-token", result.data.loginUser);
     }
 
+    // Redirect to home page
+    window.location.href = "/";
+
     if (error) console.log(error);
   };
 
