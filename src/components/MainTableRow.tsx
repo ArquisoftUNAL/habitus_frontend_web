@@ -14,22 +14,28 @@ interface HabitOcurrence {
 }
 
 const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
+    console.log(last7Days);
+    
   const [ocurrences, setOcurrences] = useState<{ [key: string]: string }>({});
   const { data, loading, error } = useQuery(GET_HABIT_OCURRENCES, {
     variables: {
       habitId: habit.hab_id,
-      startDate: last7Days[0],
-      endDate: last7Days[6],
+      startDate: last7Days[6],
+      endDate: last7Days[0],
     },
   });
 
   useEffect(() => {
     if (data !== undefined && !loading) {
+    //   if (habit.hab_id === "915859a5-d352-4a04-b8c9-f068a5d99b1c") debugger;
       const ocurrencesDict: { [key: string]: string } = {};
+      console.log(data);
+      
       data.habitdataByHabit.forEach((ocurrence: HabitOcurrence) => {
         ocurrencesDict[ocurrence.hab_dat_collected_at] =
           ocurrence.hab_dat_amount;
       });
+
       setOcurrences(ocurrencesDict);
     }
   }, [data, loading]);
@@ -61,7 +67,7 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
 
   return (
     <tr key={habit.hab_id}>
-      <th>{habit.hab_name}</th>
+      <th>{habit.hab_id}</th>
       {RenderRowData()}
     </tr>
   );

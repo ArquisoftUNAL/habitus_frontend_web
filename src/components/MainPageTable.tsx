@@ -31,7 +31,6 @@ export const MainPageTable = () => {
     return <p>Error loading data.</p>; // Display an error message
   }
 
-
   function renderLast7Days(last7Days: string[]) {
     return last7Days.map((day, index) => (
       <th key={index} scope="col">
