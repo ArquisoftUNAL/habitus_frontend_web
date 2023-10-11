@@ -5,8 +5,13 @@ import {
   InMemoryCache,
 } from "@apollo/client";
 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import { setContext } from "@apollo/client/link/context";
 import { MainPageTable } from "./components/MainPageTable";
+import CreateHabitForm from "./views/CreateHabitForm";
+import LoginForm from "./views/LoginForm";
+import RegisterForm from "./views/RegisterForm";
 
 const httpLink = createHttpLink({
   uri: "https://habitusgw-4rd4uo9b.b4a.run/",
@@ -40,7 +45,14 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <MainPageTable />
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPageTable />} />
+          <Route path="/addHabit" element={<CreateHabitForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+        </Routes>
+      </Router>
     </ApolloProvider>
   );
 }
