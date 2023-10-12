@@ -62,7 +62,7 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
 
   return (
     <tr key={habit.hab_id}>
-      <th>{habit.hab_id}</th>
+      <th>{habit.hab_name}</th>
       {RenderRowData()}
     </tr>
   );
