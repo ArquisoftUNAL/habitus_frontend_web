@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Habit } from "../typeDefs";
 import { useQuery } from "@apollo/client";
 import { GET_HABIT_OCURRENCES } from "../graphql/Queries";
@@ -14,7 +13,6 @@ interface HabitOcurrence {
 }
 
 const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
-  const [ocurrences, setOcurrences] = useState<{ [key: string]: string }>({});
   const { data, loading, error } = useQuery(GET_HABIT_OCURRENCES, {
     variables: {
       habitId: habit.hab_id,
@@ -22,19 +20,6 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
       endDate: last7Days[0],
     },
   });
-
-  useEffect(() => {
-    if (data !== undefined && !loading) {
-      //   if (habit.hab_id === "915859a5-d352-4a04-b8c9-f068a5d99b1c") debugger;
-      const ocurrencesDict: { [key: string]: string } = {};
-      data.habitdataByHabit.forEach((ocurrence: HabitOcurrence) => {
-        ocurrencesDict[ocurrence.hab_dat_collected_at] =
-          ocurrence.hab_dat_amount;
-      });
-
-      setOcurrences(ocurrencesDict);
-    }
-  }, [data, loading]);
 
   if (loading) {
     return <p>Loading...</p>; // Display a loading indicator
@@ -44,6 +29,11 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
     console.error("Error fetching data:", error);
     return <p>Error loading data.</p>; // Display an error message
   }
+
+  const ocurrences: { [key: string]: string } = {};
+  data?.habitdataByHabit?.forEach((ocurrence: HabitOcurrence) => {
+    ocurrences[ocurrence.hab_dat_collected_at] = ocurrence.hab_dat_amount;
+  });
 
   function RenderMeasurableData() {
     return last7Days.map((day: string) => {
@@ -59,13 +49,13 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
           type="checkbox"
           id="flexCheckDefault"
           disabled={!(day === last7Days[0] || day === last7Days[1])}
-          checked={true}
+          defaultChecked={day in ocurrences}
         />
       </td>
-
     ));
   }
 
+  // Render the component regardless of whether ocurrences exist
   function RenderRowData() {
     return habit.hab_is_yn ? RenderYesNoData() : RenderMeasurableData();
   }
