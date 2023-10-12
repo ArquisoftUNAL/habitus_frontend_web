@@ -48,7 +48,7 @@ export const MainPageTable = () => {
   return (
     <table className="table">
       <thead>
-        <tr>{renderLast7Days(last7Days)}</tr>
+        <tr><td></td>{renderLast7Days(last7Days)}</tr>
       </thead>
       <tbody>{renderHabits()}</tbody>
     </table>
