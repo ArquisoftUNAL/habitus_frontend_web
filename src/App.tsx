@@ -12,6 +12,7 @@ import { MainPageTable } from "./components/MainPageTable";
 import CreateHabitForm from "./views/CreateHabitForm";
 import LoginForm from "./views/LoginForm";
 import RegisterForm from "./views/RegisterForm";
+import { RadarChart } from "./components/RadarChart";
 
 const httpLink = createHttpLink({
   uri: "https://habitusgw-4rd4uo9b.b4a.run/",
@@ -51,6 +52,7 @@ function App() {
           <Route path="/addHabit" element={<CreateHabitForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+          <Route path="/statistic" element={<RadarChart />} />
         </Routes>
       </Router>
     </ApolloProvider>
