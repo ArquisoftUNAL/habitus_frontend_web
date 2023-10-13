@@ -2,7 +2,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { LOGIN_USER } from "../graphql/Mutations";
 import { useMutation } from "@apollo/client";
 import "../styles/LoginForm.css";
-import {LoginNavBar} from '../components/LoginNavBar';
+import { LoginNavBar } from "../components/LoginNavBar";
 
 function LoginForm() {
   const [loginUser, { error }] = useMutation(LOGIN_USER);
@@ -31,13 +31,16 @@ function LoginForm() {
     <div>
       <LoginNavBar />
       <div className="main-container">
-      
         <div className="login-image">
-          <h3 className="login-image__quote">"We are what we repeatedly do."</h3>
+          <h3 className="login-image__quote">
+            "We are what we repeatedly do."
+          </h3>
         </div>
         <div className="login-form-container">
           <h2 className="login-form__title">Hello again!</h2>
-          <h5 className="login-form__sub-title">Return your journey to greatness</h5>
+          <h5 className="login-form__sub-title">
+            Return your journey to greatness
+          </h5>
           <hr />
           <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-3">
@@ -65,7 +68,9 @@ function LoginForm() {
             <button disabled={false} className="btn btn-primary" type="submit">
               Login
             </button>
-            <p>Don't have an account? <a href="#">Create one now!</a></p>
+            <p>
+              Don't have an account? <a href="#">Create one now!</a>
+            </p>
           </form>
         </div>
       </div>
