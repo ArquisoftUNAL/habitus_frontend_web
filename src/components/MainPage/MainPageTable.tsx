@@ -14,7 +14,11 @@ export const MainPageTable = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
 
   // Use the useQuery hook to fetch data
-  const { data, loading, error } = useQuery(GET_USER_HABITS);
+  const { data, loading, error } = useQuery(GET_USER_HABITS, {
+    variables: {
+      per_page: 100,
+    },
+  });
 
   useEffect(() => {
     if (data !== undefined && !loading) {
