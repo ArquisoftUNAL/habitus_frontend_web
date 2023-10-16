@@ -15,7 +15,7 @@ import RegisterForm from "./views/RegisterForm";
 import { RadarChart } from "./components/RadarChart";
 
 const httpLink = createHttpLink({
-  uri: "https://habitusgw-4rd4uo9b.b4a.run/",
+  uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app",
 });
 
 const authLink = setContext((_, { headers }) => {
