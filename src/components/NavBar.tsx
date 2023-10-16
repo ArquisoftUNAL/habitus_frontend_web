@@ -44,13 +44,18 @@ export const NavBar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="/">
+              <a className="nav-link text-white" href="/achievements">
                 Achievements
               </a>
             </li>
             <li className="nav-item">
               <a className="nav-link text-white" href="/calendar">
                 Calendar
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link text-white" href="/notifications">
+                Notifications
               </a>
             </li>
           </ul>
@@ -79,6 +84,6 @@ export const NavBar = () => {
           </ul>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 };
