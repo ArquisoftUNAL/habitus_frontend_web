@@ -23,6 +23,7 @@ export const GET_HABIT_OCURRENCES = gql`
     habitdataByHabit(id: $habitId, start_date: $startDate, end_date: $endDate) {
       hab_dat_collected_at
       hab_dat_amount
+      hab_dat_id
     }
   }
 `;

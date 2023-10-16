@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { GET_USER_HABITS } from "../graphql/Queries";
-import { Habit } from "../typeDefs";
+import { GET_USER_HABITS } from "../../graphql/Queries";
+import { Habit } from "../../typeDefs";
 import { useEffect, useState } from "react";
 import MainTableRow from "./MainTableRow";
 
@@ -48,7 +48,10 @@ export const MainPageTable = () => {
   return (
     <table className="table">
       <thead>
-        <tr><td></td>{renderLast7Days(last7Days)}</tr>
+        <tr>
+          <td></td>
+          {renderLast7Days(last7Days)}
+        </tr>
       </thead>
       <tbody>{renderHabits()}</tbody>
     </table>

@@ -8,7 +8,7 @@ import {
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { setContext } from "@apollo/client/link/context";
-import { MainPageTable } from "./components/MainPageTable";
+import { MainPageTable } from "./components/MainPage/MainPageTable";
 import CreateHabitForm from "./views/CreateHabitForm";
 import LoginForm from "./views/LoginForm";
 import RegisterForm from "./views/RegisterForm";
