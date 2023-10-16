@@ -31,7 +31,7 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
       const isHabDatAmountChecked =
         habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== undefined &&
         habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== "0" &&
-        habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== "0.1";
+        habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== "0.10";
 
       setChecked(isHabDatAmountChecked);
     }
@@ -45,7 +45,8 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
       // True if it's not checked and if habitdataByHabit?.habitdataByHabit doesn't exist.
 
       const condition1 =
-        (!previousCheckedState || !habitdataByHabit?.habitdataByHabit) &&
+        !previousCheckedState &&
+        (!habitdataByHabit || !habitdataByHabit.habitdataByHabit) &&
         modifiable;
 
       if (condition1) {
@@ -58,7 +59,6 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
         });
         console.log("add");
       } else if (
-        previousCheckedState &&
         habitdataByHabit?.habitdataByHabit &&
         modifiable
       ) {
