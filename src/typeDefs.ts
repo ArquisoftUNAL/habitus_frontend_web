@@ -21,3 +21,9 @@ export interface Habit {
   hab_freq_type: string;
   data: HabitData[];
 }
+
+export interface HabitData {
+  hab_dat_id: string;
+  hab_dat_amount: string;
+  hab_dat_collected_at: string;
+}

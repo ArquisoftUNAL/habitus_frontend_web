@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER_HABITS = gql`
-  query GetUserHabits {
-    habitsByUser {
+  query GetUserHabits($per_page: Int) {
+    habitsByUser(per_page: $per_page) {
       hab_name
       hab_created_at
       hab_freq_type
@@ -23,6 +23,7 @@ export const GET_HABIT_OCURRENCES = gql`
     habitdataByHabit(id: $habitId, start_date: $startDate, end_date: $endDate) {
       hab_dat_collected_at
       hab_dat_amount
+      hab_dat_id
     }
   }
 `;

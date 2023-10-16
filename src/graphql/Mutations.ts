@@ -56,3 +56,50 @@ export const CREATE_HABIT = gql`
     }
   }
 `;
+
+export const ADD_HABIT_DATA = gql`
+  mutation AddHabitData(
+    $amount: Float!
+    $collected_at: String!
+    $habit_id: String!
+  ) {
+    addHabitdata(
+      data: {
+        amount: $amount
+        collected_at: $collected_at
+        habit_id: $habit_id
+      }
+    ) {
+      message
+      data {
+        hab_dat_id
+      }
+    }
+  }
+`;
+
+export const UPDATE_HABIT_DATA = gql`
+  mutation UpdateHabitData($datId: String!, $amount: Float!) {
+    updateHabitdata(datId: $datId, data: { amount: $amount }) {
+      message
+    }
+  }
+`;
+
+export const DELETE_HABIT_DATA = gql`
+    mutation DeleteHabit (
+        $datId: String!
+    ) {
+        deleteHabitdata (
+            datId: $datId
+        ) {
+            message
+            data {
+                hab_dat_id
+                hab_dat_amount
+                hab_dat_collected_at
+                hab_id
+            }
+        }
+    }
+`;

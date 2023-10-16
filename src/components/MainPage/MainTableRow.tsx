@@ -1,6 +1,8 @@
-import { Habit } from "../typeDefs";
+import { Habit } from "../../typeDefs";
 import { useQuery } from "@apollo/client";
-import { GET_HABIT_OCURRENCES } from "../graphql/Queries";
+import { GET_HABIT_OCURRENCES } from "../../graphql/Queries";
+import YesNoCheckbox from "./YesNoCheckbox";
+import InputMeasurableField from "./InputMeasurableField";
 
 interface MainTableRowProps {
   habit: Habit;
@@ -37,21 +39,13 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
 
   function RenderMeasurableData() {
     return last7Days.map((day: string) => {
-      return <td>{ocurrences[day] ?? "0"}</td>;
+      return <InputMeasurableField habit={habit} day={day} />;
     });
   }
 
   function RenderYesNoData() {
     return last7Days.map((day: string) => (
-      <td>
-        <input
-          className="form-check-input"
-          type="checkbox"
-          id="flexCheckDefault"
-          disabled={!(day === last7Days[0] || day === last7Days[1])}
-          defaultChecked={day in ocurrences}
-        />
-      </td>
+      <YesNoCheckbox habit={habit} day={day} />
     ));
   }
 

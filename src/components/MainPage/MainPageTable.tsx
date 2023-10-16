@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { GET_USER_HABITS } from "../graphql/Queries";
-import { Habit } from "../typeDefs";
+import { GET_USER_HABITS } from "../../graphql/Queries";
+import { Habit } from "../../typeDefs";
 import { useEffect, useState } from "react";
 import MainTableRow from "./MainTableRow";
 
@@ -14,7 +14,11 @@ export const MainPageTable = () => {
   const [habits, setHabits] = useState<Habit[]>([]);
 
   // Use the useQuery hook to fetch data
-  const { data, loading, error } = useQuery(GET_USER_HABITS);
+  const { data, loading, error } = useQuery(GET_USER_HABITS, {
+    variables: {
+      per_page: 100,
+    },
+  });
 
   useEffect(() => {
     if (data !== undefined && !loading) {
@@ -48,7 +52,10 @@ export const MainPageTable = () => {
   return (
     <table className="table">
       <thead>
-        <tr><td></td>{renderLast7Days(last7Days)}</tr>
+        <tr>
+          <td></td>
+          {renderLast7Days(last7Days)}
+        </tr>
       </thead>
       <tbody>{renderHabits()}</tbody>
     </table>
