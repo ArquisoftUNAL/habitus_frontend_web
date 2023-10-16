@@ -1,0 +1,24 @@
+.notification-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  background-color:    #426eac; 
+  padding: 10px;
+  border: 1px solid #b0c4de;
+  margin: 5px 0;
+  border-radius: 5px;
+  color: #fff; 
+}
+
+.notification-item:nth-child(even) {
+  background-color: #1f439e;
+  color: #fff; 
+}
+
+.notification-item:hover {
+    transform: scale(1.004); 
+    transition: transform 0.2s; 
+}
