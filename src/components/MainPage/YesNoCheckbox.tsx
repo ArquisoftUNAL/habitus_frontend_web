@@ -27,13 +27,11 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
 
   useEffect(() => {
     if (!loading) {
-      const jose1 = habit;
-      const jose3 = day;
-      const jose2 =
+      const isHabDatAmountValid =
         habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== "0" &&
         habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== undefined;
 
-      setChecked(jose2);
+      setChecked(isHabDatAmountValid);
     }
   }, [habitdataByHabit, loading]);
 
@@ -64,16 +62,16 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
   //     updateHabitData,
   //   ]);
 
-  //   function dayInLast2Days(day: string) {
-  //     // Return true if day is today or yesterday
-  //     return (
-  //       day === new Date().toISOString().slice(0, 10) ||
-  //       day ===
-  //         new Date(new Date().setDate(new Date().getDate() - 1))
-  //           .toISOString()
-  //           .slice(0, 10)
-  //     );
-  //   }
+    function dayInLast2Days(day: string) {
+      // Return true if day is today or yesterday
+      return !(
+        day === new Date().toISOString().slice(0, 10) ||
+        day ===
+          new Date(new Date().setDate(new Date().getDate() - 1))
+            .toISOString()
+            .slice(0, 10)
+      );
+    }
 
   return (
     <td>
@@ -83,7 +81,7 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
         id="flexCheckDefault"
         checked={checked}
         onChange={() => setChecked(!checked)}
-        // disabled={dayInLast2Days(day)}
+        disabled={dayInLast2Days(day)}
       />
     </td>
   );
