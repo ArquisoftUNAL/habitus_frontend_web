@@ -48,6 +48,11 @@ export const NavBar = () => {
                 Achievements
               </a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link text-white" href="/calendar">
+                Calendar
+              </a>
+            </li>
           </ul>
         </div>
         <div className="dropdown-center">

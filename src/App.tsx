@@ -12,10 +12,11 @@ import { MainPageTable } from "./components/MainPageTable";
 import CreateHabitForm from "./views/CreateHabitForm";
 import LoginForm from "./views/LoginForm";
 import RegisterForm from "./views/RegisterForm";
+import CalendarView from "./views/CalendarView";
 import { RadarChart } from "./components/RadarChart";
 
 const httpLink = createHttpLink({
-  uri: "https://habitusgw-4rd4uo9b.b4a.run/",
+  uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app/",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/statistic" element={<RadarChart />} />
+          <Route path="/calendar" element={<CalendarView />} />
         </Routes>
       </Router>
     </ApolloProvider>
