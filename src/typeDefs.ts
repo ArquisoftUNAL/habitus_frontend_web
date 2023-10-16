@@ -27,3 +27,29 @@ export interface HabitData {
   hab_dat_amount: string;
   hab_dat_collected_at: string;
 }
+
+export interface HistoryData {
+  __typename: string;
+  year: number;
+  week: number;
+  month: number;
+  day: number;
+  semester: number;
+  count: number;
+  value: number;
+}
+
+export interface Achievement {
+  __typename: string;
+  currentStreak: number;
+  highestStreak: number;
+  name: string;
+  id: string;
+}
+
+export interface Milestone {
+  __typename: string;
+  streak: number;
+  date: string;
+  id: string;
+}

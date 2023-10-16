@@ -15,6 +15,8 @@ import CalendarView from "./views/CalendarView";
 import { RadarChart } from "./components/RadarChart";
 import MainPage from "./views/MainPage";
 import Notifications from "./views/Notifications";
+import StatisticsView from "./views/StatisticsView";
+import AchievementsView from "./views/AchievementsView";
 
 const httpLink = createHttpLink({
   uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app/",
@@ -56,6 +58,8 @@ function App() {
           <Route path="/statistic" element={<RadarChart />} />
           <Route path="/calendar" element={<CalendarView />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/statistics" element={<StatisticsView />} />
+          <Route path="/achievements" element={<AchievementsView />} />
         </Routes >
       </Router >
     </ApolloProvider >
