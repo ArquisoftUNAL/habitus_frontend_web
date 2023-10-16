@@ -30,7 +30,7 @@ function CreateHabitForm() {
     const is_favorite = isClick;
     const is_yn = habitType === "Yes / No";
 
-    const result = await CreateHabit({
+    await CreateHabit({
       variables: {
         name,
         description,
@@ -44,9 +44,10 @@ function CreateHabitForm() {
       },
     });
 
-    console.log(result);
-
     if (error) console.log(error);
+
+    // Redirect to home page
+    window.location.href = "/";
   };
 
   return (
@@ -133,7 +134,6 @@ function CreateHabitForm() {
               </div>
             </div>
           ) : null}
-          
 
           <div className="mb-3 create-habit-form__frequency-type">
             <label htmlFor="frequency_type" className="form-label">

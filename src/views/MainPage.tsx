@@ -5,6 +5,9 @@ const MainPage = () => {
   return (
     <div>
       <NavBar />
+      <a className="btn" href="/addHabit">
+        Add habit
+      </a>
       <MainPageTable />
     </div>
   );

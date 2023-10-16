@@ -3,6 +3,7 @@ import { Habit } from "../../typeDefs";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_HABIT_DATA, DELETE_HABIT_DATA } from "../../graphql/Mutations";
 import { GET_HABIT_OCURRENCES } from "../../graphql/Queries";
+import { dayInLast2Days } from "../../utilities/dayInLast2Days";
 
 interface Props {
   habit: Habit;
@@ -59,17 +60,6 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
         }
       }
     }
-  }
-
-  function dayInLast2Days(day: string) {
-    // Return true if day is today or yesterday
-    return (
-      day === new Date().toISOString().slice(0, 10) ||
-      day ===
-        new Date(new Date().setDate(new Date().getDate() - 1))
-          .toISOString()
-          .slice(0, 10)
-    );
   }
 
   return (
