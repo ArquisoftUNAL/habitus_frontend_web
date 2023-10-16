@@ -3,6 +3,7 @@ import { GET_USER_HABITS } from "../../graphql/Queries";
 import { Habit } from "../../typeDefs";
 import { useEffect, useState } from "react";
 import MainTableRow from "./MainTableRow";
+import LoadingView from "../../views/LoadingView";
 
 export const MainPageTable = () => {
   const last7Days = Array.from({ length: 7 }, (_, index) => {
@@ -27,7 +28,7 @@ export const MainPageTable = () => {
   }, [data, loading]);
 
   if (loading) {
-    return <p>Loading...</p>; // Display a loading indicator
+    return <LoadingView />;
   }
 
   if (error) {
