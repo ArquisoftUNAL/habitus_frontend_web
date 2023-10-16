@@ -8,11 +8,11 @@ import {
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import { setContext } from "@apollo/client/link/context";
-import { MainPageTable } from "./components/MainPage/MainPageTable";
 import CreateHabitForm from "./views/CreateHabitForm";
 import LoginForm from "./views/LoginForm";
 import RegisterForm from "./views/RegisterForm";
 import { RadarChart } from "./components/RadarChart";
+import MainPage from "./views/MainPage";
 
 const httpLink = createHttpLink({
   uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app",
@@ -47,7 +47,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Routes>
-          <Route path="/" element={<MainPageTable />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/addHabit" element={<CreateHabitForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
