@@ -72,7 +72,7 @@ export const data = {
   export const AreaChart = () => {
     return (
         <div style={
-            {width: "80%", aspectRatio: "3/2"}
+            {aspectRatio: "2/2"}
         }>
             <Line options={options} data={data} />
         </div>

@@ -42,7 +42,7 @@ export const data = {
   export const PolarAreaChart = () => {
     return (
         <div style={
-            {width: "80%", aspectRatio: "3/2"}
+            {aspectRatio: "2/2"}
         }>
             <PolarArea data={data} />
         </div>

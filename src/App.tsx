@@ -13,9 +13,13 @@ import CreateHabitForm from "./views/CreateHabitForm";
 import LoginForm from "./views/LoginForm";
 import RegisterForm from "./views/RegisterForm";
 import { RadarChart } from "./components/RadarChart";
+import StatisticsView from "./views/StatisticsView";
+import AchievementsView from "./views/AchievementsView";
 
 const httpLink = createHttpLink({
-  uri: "https://habitusgw-4rd4uo9b.b4a.run/",
+//  uri: "https://habitusgw-4rd4uo9b.b4a.run/",
+//    uri: "http://2.tcp.ngrok.io:13288/",
+  uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app/"
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -52,6 +56,8 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/statistic" element={<RadarChart />} />
+          <Route path="/statistics" element={<StatisticsView />} />
+          <Route path="/achievements" element={<AchievementsView />} />
         </Routes>
       </Router>
     </ApolloProvider>

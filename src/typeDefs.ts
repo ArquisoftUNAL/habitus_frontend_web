@@ -21,3 +21,29 @@ export interface Habit {
   hab_freq_type: string;
   data: HabitData[];
 }
+
+export interface HistoryData {
+  __typename: string;
+  year: number;
+  week: number;
+  month: number;
+  day: number;
+  semester: number;
+  count: number;
+  value: number;
+}
+
+export interface Achievement {
+  __typename: string;
+  currentStreak: number;
+  highestStreak: number;
+  name: string;
+  id: string;
+}
+
+export interface Milestone {
+  __typename: string;
+  streak: number;
+  date: string;
+  id: string;
+}
