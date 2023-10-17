@@ -5,20 +5,20 @@
 }
 
 .notification-item {
-  background-color:    #426eac; 
+  background-color: #426eac;
   padding: 10px;
   border: 1px solid #b0c4de;
   margin: 5px 0;
   border-radius: 5px;
-  color: #fff; 
+  color: #fff;
 }
 
-.notification-item:nth-child(even) {
+.notification-item:nth-child(2n+2) {
   background-color: #1f439e;
-  color: #fff; 
+  color: #fff;
 }
 
 .notification-item:hover {
-    transform: scale(1.004); 
-    transition: transform 0.2s; 
+  transform: scale(1.004);
+  transition: transform 0.2s;
 }

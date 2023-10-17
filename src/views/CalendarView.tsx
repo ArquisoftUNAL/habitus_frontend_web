@@ -326,14 +326,6 @@ const CalendarView: React.FC = () => {
 
     const calendarData = habit ? queryByHabitData?.calendarEventsByHabit : queryByUserData?.calendarEventsByUser;
 
-    // Build data for pie chart
-    const pieChartData = selectedDayData && {
-        data: [selectedDayData.relative_frequency, 1 - selectedDayData.relative_frequency],
-        labels: ['Ocurrences', 'Remaining'],
-        label: 'Ocurrences vs Total ocurrences in month',
-        colors: ['#002B99', '#F6F6A4']
-    };
-
     return (
         <div className="row text-center">
             <NavBar />

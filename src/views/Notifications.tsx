@@ -5,6 +5,8 @@ import '../styles/Notifications.css';
 import { NavBar } from "../components/NavBar";
 import LoadingView from './LoadingView';
 
+import "./../styles/GeneralStyles.css"
+
 interface Notification {
   noti_title: string;
   noti_body: string;
@@ -37,9 +39,13 @@ function Notifications() {
   return (
     <div>
       <NavBar />
-      <ul className="row notification-list">
+      <ul className="row text-center notification-list">
+        <div className="col-12 habitus-page-title habitus-with-bottomline">
+          Notifications
+        </div>
+        <div className="habitus-separator"></div>
         {notifications.map((notification, index) => (
-          <li key={index} className="col-12 notification-item">
+          <li key={index} className="col-12 col-sm-4 notification-item">
             <strong>Title:</strong> {notification.noti_title}<br />
             <strong>Body:</strong> {notification.noti_body}<br />
             <strong>Send Email:</strong> {notification.noti_should_email ? "Yes" : "No"}<br />

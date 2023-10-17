@@ -8,7 +8,9 @@ import { PieChart } from "../components/PieChart";
 import LoadingView from "./LoadingView";
 import { NavBar } from "../components/NavBar";
 
-export const achievementsView = () => {
+import "./../styles/GeneralStyles.css";
+
+export const AchievementsView = () => {
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [habit, setHabit] = useState<Habit | null>(null);
@@ -19,6 +21,11 @@ export const achievementsView = () => {
     const [getAchievementsByHabit, { data: achData, loading: achLoading, error: achError }] = useLazyQuery(HABIT_ACHIEVEMENTS);
 
     const [getMilestonesByAchievement, { data: milData, loading: milLoading, error: milError }] = useLazyQuery(ACHIEVEMENT_MILESTONES);
+
+    console.log("Milestone error", JSON.stringify(milError));
+    console.log("Achivement error", JSON.stringify(achError));
+    console.log("Achievement data", JSON.stringify(achData));
+    console.log("Milestone data", JSON.stringify(milData));
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
@@ -52,54 +59,130 @@ export const achievementsView = () => {
         });
     }
 
+    const achievementsList = achData?.achievementsByHabit.data ?? [];
+
+    function RenderAchievements() {
+
+        if (habit === null) {
+            return <div className="habitus-large-text">
+                No habit chosen
+            </div>;
+        }
+
+        if (achLoading) {
+            return <LoadingView />;
+        }
+
+        if (achError) {
+            return <div>{JSON.stringify(achError)}</div>;
+        }
+
+        if (achievementsList.length === 0) {
+            return <div className="habitus-large-text">
+                No achievements for this habit
+            </div>;
+        }
+
+        const achievement = achievementsList[0];
+
+        const currentStreakToGraphicate = achievement.currentStreak > 0 ? achievement.currentStreak : 0.1;
+        const highestStreakToGraphicate = achievement.highestStreak - achievement.currentStreak > 0 ? achievement.highestStreak - achievement.currentStreak : 0.1;
+
+        return (
+            <div className="row my-3">
+                <div className="habitus-large-text">
+                    Status for achievement: {achievement.name}
+                </div>
+                <div className="col-12 col-sm-6 my-3">
+                    <h3 className="habitus-large-text">
+                        Current streak: {achievement.currentStreak}
+                    </h3>
+                </div>
+                <div
+                    className="col-12 col-sm-6 my-3"
+                >
+                    <h3 className="habitus-large-text">
+                        Record streak: {achievement.highestStreak}
+                    </h3>
+                </div>
+                <div
+                    className="col-8 my-3"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                    }}
+                >
+                    <PieChart
+                        data={[currentStreakToGraphicate, highestStreakToGraphicate]}
+                        labels={["progress", "remaining"]}
+                    />
+                </div>
+            </div>
+        )
+    }
+
+    function RenderMilestones() {
+
+        if (achievementsList.length == 0) {
+            return <div className="habitus-large-text">
+                No achievement chosen
+            </div>;
+        }
+
+        if (milLoading || !milData) {
+            return <LoadingView />;
+        }
+
+        if (milError) {
+            return <div>{JSON.stringify(milError)}</div>;
+        }
+
+        return (
+            <div className="row my-2">
+                <div className="col-12 habitus-large-text">
+                    Milestones
+                </div>
+                {
+                    milData.milestonesByAchievement.data.length === 0 ?
+                        <div className="col-12 habitus-medium-text">
+                            No milestones for this achievement
+                        </div>
+                        :
+                        milData.milestonesByAchievement.data.map((milestone: Milestone, index: number) => {
+                            return <div className="col-12 col-sm-3 my-3" key={index}>
+                                <div className="my-3 habitus-medium-text">
+                                    Date: {milestone.date} - Streak: {milestone.streak}
+                                </div>
+                            </div>
+                        })
+                }
+            </div>
+        )
+    }
+
     return (
         <div className="container-fluid">
             <NavBar />
-            <div className="row">
+            <div className="row text-center">
+                <div className="col-12 habitus-page-title habitus-with-bottomline">
+                    Achievements
+                </div>
+                <div className="habitus-separator"></div>
                 <div className="col-sm-3 p-4 m-3 border border-3 rounded-4">
                     {habitButtonList()}
                 </div>
                 <div className="col-sm-7 p-3 my-3 border border-3 rounded-4">
                     <div className="col-sm-10 offset-1">
                         <div className="row my-3 text-center">
-                            <h1>
-                                {habit ? habit.hab_name : "Select a habit"}
+                            <h1 className="col-12 habitus-large-text">
+                                Chosen Habit: {habit ? habit.hab_name : "Select a habit"}
                             </h1>
                             {habit &&
                                 <div className="row">
                                     {(achData) &&
                                         <div className="row my-2">
-                                            {achData.achievementsByHabit.data.map((achievement: Achievement) => {
-                                                return <div className="row my-3">
-                                                    <div className="row my-3">
-                                                        <h3>
-                                                            Current streak: {achievement.currentStreak}
-                                                        </h3>
-                                                    </div>
-                                                    <div className="row my-3">
-                                                        <h3>
-                                                            Record streak: {achievement.highestStreak}
-                                                        </h3>
-                                                    </div>
-                                                    <div className="row my-3">
-                                                        <PieChart data={[achievement.currentStreak, achievement.highestStreak - achievement.currentStreak]
-                                                        } labels={["progress", "remaining"]} />
-                                                    </div>
-                                                    {JSON.stringify(achievement)}
-                                                </div>
-                                            })}
-                                            {milData &&
-                                                <div className="row my-2">
-                                                    {milData.milestonesByAchievement.data.map((milestone: Milestone) => {
-                                                        return <div className="row my-3">
-                                                            <div className="row my-3">
-                                                                {milestone.id}
-                                                            </div>
-                                                        </div>
-                                                    })}
-                                                </div>
-                                            }
-                                            {JSON.stringify(milData)}
+                                            {RenderAchievements()}
+                                            {RenderMilestones()}
                                         </div>
                                     }
                                 </div>
@@ -112,4 +195,4 @@ export const achievementsView = () => {
     );
 };
 
-export default achievementsView;
+export default AchievementsView;
