@@ -69,7 +69,6 @@ const InputMeasurableField = ({ habit, day }: Props) => {
     }
   }
 
-
   return (
     <td>
       <input
@@ -80,7 +79,12 @@ const InputMeasurableField = ({ habit, day }: Props) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button disabled={!dayInLast2Days(day)} onClick={HandleClick}>
+      <button
+        className="habitus-button"
+        disabled={!dayInLast2Days(day)}
+        onClick={HandleClick}
+        style={{ fontSize: "0.8rem" }}
+      >
         Ok
       </button>
     </td>
