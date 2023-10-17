@@ -3,6 +3,11 @@ import userIcon from "../assets/user.png";
 import "../styles/NavBar.css";
 
 export const NavBar = () => {
+  function HandleLogout() {
+    localStorage.removeItem("x-auth-token");
+    window.location.href = "/login";
+  }
+
   return (
     <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
@@ -77,13 +82,13 @@ export const NavBar = () => {
               </a>
             </li>
             <li>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="#" onClick={HandleLogout}>
                 Logout
               </a>
             </li>
           </ul>
         </div>
       </div>
-    </nav >
+    </nav>
   );
 };
