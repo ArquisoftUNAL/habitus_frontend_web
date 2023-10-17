@@ -32,6 +32,12 @@ function RegisterForm() {
   return (
     <div>
       <LoginNavBar />
+      <div className="row">
+        <div className="col-12 text-center habitus-page-title habitus-with-bottomline">
+          Register
+        </div>
+        <div className="habitus-separator"></div>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="form">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">

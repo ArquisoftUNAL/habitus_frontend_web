@@ -5,51 +5,9 @@ import { HABITS_BY_USER, GET_MEASURE_HABIT_STATISTICS, GET_YN_HABIT_STATISTICS }
 import { Habit, HistoryData } from "../typeDefs";
 import { useEffect, useState } from "react";
 import { PieChart } from "../components/PieChart";
+
+import "./../styles/GeneralStyles.css";
 import { NavBar } from "../components/NavBar";
-// export const statisticsView2 = () => {
-
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     const [habits, setHabits] = useState<Habit[]>([]);
-
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     const { data, loading, error } = useQuery(HABITS_BY_USER);
-
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     const habitList = useRef(["fdfdssdfsf","Ddaadsd","dsaasdd","dsadas","fdsdf","Ddaadsd","dsaasdd","dsadas","fdsdf","Ddaadsd","dsaasdd","dsadas","fdsdf","Ddaadsd","dsaasdd","dsadas","fdsdf"]);
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     const habName = useRef("aaaaa");
-//     // eslint-disable-next-line react-hooks/rules-of-hooks
-//     useEffect(() => {
-//         if (data !== undefined && !loading) {
-//             setHabits(data.habitsByUser ?? []);
-//         }
-//       }, [data, loading, habitList]);
-
-//     function habitButtonList() {
-//         return habits.map((habit: Habit) => {
-//             return <BlueButton key={habit.hab_id} caption={habit.hab_name} onClick={() => {habName.current = habit.hab_name}}/>;
-//         });
-//     }
-
-//     return (
-//         <div className="container-fluid">
-//             <LoginNavBar />
-//             <div className="row">
-//                 <div className="col-sm-3 p-4 m-3 border border-3 rounded-4">
-//                     {habitButtonList()}
-//                 </div>
-//                 <div className="col-sm-7 p-3 my-3 border border-3 rounded-4">
-//                     <div className="col-sm-10 offset-1">
-//                         <div className="row">
-//                             {habName.current}
-//                         </div>
-//                         <RadarChart />
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
 
 export const StatisticsView = () => {
 
@@ -155,11 +113,14 @@ export const StatisticsView = () => {
                                     <div className="row my-2">
                                         <div className="row my-2">
                                             <div className="col-sm-4">
+
                                                 <div className="row text-center">
                                                     <h5>Today</h5>
                                                 </div>
-                                                <PieChart data={[measureData.habitMeasureReport.resume.toDay.progress, measureData.habitMeasureReport.resume.toDay.remaining]
-                                                } labels={["progress", "remaining"]} />
+                                                {measureData.habitMeasureReport.resume.toDay &&
+                                                    <PieChart data={[measureData.habitMeasureReport.resume.toDay.progress, measureData.habitMeasureReport.resume.toDay.remaining]
+                                                    } labels={["progress", "remaining"]} />
+                                                }
                                             </div>
                                             <div className="col-sm-4">
                                                 <div className="row text-center">
