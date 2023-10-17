@@ -1,9 +1,7 @@
-FROM node:16
-
-COPY . .
-
+FROM node:alpine
+WORKDIR /app
+COPY package.json .
 RUN npm install
-
-EXPOSE 5000
-
-CMD ["npm", "run", "dev"]
+# copy all files
+COPY . .
+cmd ["npm", "run", "dev"]
