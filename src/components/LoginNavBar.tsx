@@ -7,16 +7,16 @@ export const LoginNavBar = () => {
     <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
         <div>
-            <img
-              src={logoImage}
-              alt="Habitus Logo"
-              width="60"
-              height="54"
-              className="logo-image"
-            />
-            <a className="navbar-brand text-white" href="#">
-              Habitus
-            </a>
+          <img
+            src={logoImage}
+            alt="Habitus Logo"
+            width="60"
+            height="54"
+            className="logo-image"
+          />
+          <a className="navbar-brand text-white" href="#">
+            Habitus
+          </a>
         </div>
         <button
           className="navbar-toggler"
@@ -41,7 +41,7 @@ export const LoginNavBar = () => {
           />
           <ul className="dropdown-menu">
             <li>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="/register">
                 Register
               </a>
             </li>

@@ -74,6 +74,7 @@ const InputMeasurableField = ({ habit, day }: Props) => {
       <input
         id="flexCheckDefault"
         type="number"
+        className="form-control"
         step={0.1}
         disabled={!dayInLast2Days(day)}
         value={text}

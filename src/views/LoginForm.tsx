@@ -69,7 +69,7 @@ function LoginForm() {
               Login
             </button>
             <p>
-              Don't have an account? <a href="#">Create one now!</a>
+              Don't have an account? <a href="/register">Create one now!</a>
             </p>
           </form>
         </div>
