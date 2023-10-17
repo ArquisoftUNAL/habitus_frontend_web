@@ -22,6 +22,9 @@ function RegisterForm() {
       localStorage.setItem("x-auth-token", result.data.createUser.jwt);
     }
 
+    // Go to the main page
+    window.location.href = "/";
+
     if (error) console.log(error);
   };
 

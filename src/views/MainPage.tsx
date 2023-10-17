@@ -5,7 +5,7 @@ const MainPage = () => {
   return (
     <div>
       <NavBar />
-      <a className="btn" href="/addHabit">
+      <a className="btn" href="/addHabit" style={{marginTop: "20px", color: "white"}}>
         Add habit
       </a>
       <MainPageTable />

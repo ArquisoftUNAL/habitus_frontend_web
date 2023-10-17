@@ -69,18 +69,23 @@ const InputMeasurableField = ({ habit, day }: Props) => {
     }
   }
 
-
   return (
     <td>
       <input
         id="flexCheckDefault"
         type="number"
+        className="form-control"
         step={0.1}
         disabled={!dayInLast2Days(day)}
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button disabled={!dayInLast2Days(day)} onClick={HandleClick}>
+      <button
+        className="habitus-button btn"
+        disabled={!dayInLast2Days(day)}
+        onClick={HandleClick}
+        style={{ fontSize: "0.8rem", padding: "0.05rem"}}
+      >
         Ok
       </button>
     </td>
