@@ -150,24 +150,27 @@ export const statisticsView = () => {
                                 <div className="row my-2">
                                     <div className="row my-2">
                                         <div className="col-sm-4">
+                                            
                                             <div className="row text-center">
                                                 <h5>Today</h5>
                                             </div>
-                                            <PieChart data={[measureData.habitFMeasureReport.resume.toDay.progress,measureData.habitFMeasureReport.resume.toDay.remaining]
+                                            {measureData.habitMeasureReport.resume.toDay &&
+                                            <PieChart data={[measureData.habitMeasureReport.resume.toDay.progress,measureData.habitMeasureReport.resume.toDay.remaining]
                                             } labels={["progress","remaining"]} />
+                                            }
                                         </div>
                                         <div className="col-sm-4">
                                             <div className="row text-center">
                                                 <h5>Week</h5>
                                             </div>
-                                            <PieChart data={[measureData.habitFMeasureReport.resume.week.progress,measureData.habitFMeasureReport.resume.week.remaining]
+                                            <PieChart data={[measureData.habitMeasureReport.resume.week.progress,measureData.habitMeasureReport.resume.week.remaining]
                                             } labels={["progress","remaining"]} />
                                         </div>
                                         <div className="col-sm-4">
                                             <div className="row text-center">
                                                 <h5>Month</h5>
                                             </div>
-                                            <PieChart data={[measureData.habitFMeasureReport.resume.month.progress,measureData.habitFMeasureReport.resume.month.remaining]
+                                            <PieChart data={[measureData.habitMeasureReport.resume.month.progress,measureData.habitMeasureReport.resume.month.remaining]
                                             } labels={["progress","remaining"]} />
                                         </div>
                                     </div>
@@ -176,14 +179,14 @@ export const statisticsView = () => {
                                             <div className="row text-center">
                                                 <h5>Semester</h5>
                                             </div>
-                                            <PieChart data={[measureData.habitFMeasureReport.resume.semester.progress,measureData.habitFMeasureReport.resume.semester.remaining]
+                                            <PieChart data={[measureData.habitMeasureReport.resume.semester.progress,measureData.habitMeasureReport.resume.semester.remaining]
                                             } labels={["progress","remaining"]} />
                                         </div>
                                         <div className="col-sm-4">
                                             <div className="row text-center">
                                                 <h5>Year</h5>
                                             </div>
-                                            <PieChart data={[measureData.habitFMeasureReport.resume.year.progress,measureData.habitFMeasureReport.resume.year.remaining]
+                                            <PieChart data={[measureData.habitMeasureReport.resume.year.progress,measureData.habitMeasureReport.resume.year.remaining]
                                             } labels={["progress","remaining"]} />
                                         </div>
                                     </div>
@@ -255,7 +258,7 @@ export const statisticsView = () => {
                                     <h5>Today</h5>
                                 </div>
                                 <div className="row my-2 bg-secondary border-secondary border-3 rounded-4">
-                                    {measureData.habitFMeasureReport.history.day.data.map((historyData: HistoryData) => { 
+                                    {measureData.habitMeasureReport.history.day.data.map((historyData: HistoryData) => { 
                                         return  <div className="col-sm-5 bg-light border border-3 rounded-4 m-3 text-center">
                                                     <div className="row p-2">
                                                         <h5>Year: {historyData.year}</h5>
