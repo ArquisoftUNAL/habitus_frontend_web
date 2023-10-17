@@ -81,10 +81,10 @@ const InputMeasurableField = ({ habit, day }: Props) => {
         onChange={(e) => setText(e.target.value)}
       />
       <button
-        className="habitus-button"
+        className="habitus-button btn"
         disabled={!dayInLast2Days(day)}
         onClick={HandleClick}
-        style={{ fontSize: "0.8rem" }}
+        style={{ fontSize: "0.8rem", padding: "0.05rem"}}
       >
         Ok
       </button>
