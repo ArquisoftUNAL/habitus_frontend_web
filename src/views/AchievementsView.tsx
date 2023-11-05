@@ -1,8 +1,7 @@
-import { LoginNavBar } from "../components/LoginNavBar";
 import BlueButton from "../components/BlueButton";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { HABITS_BY_USER, HABIT_ACHIEVEMENTS, ACHIEVEMENT_MILESTONES } from "../graphql/Queries";
-import { Habit, Achievement, Milestone } from "../typeDefs";
+import { Habit, Milestone } from "../typeDefs";
 import { useEffect, useState } from "react";
 import { PieChart } from "../components/PieChart";
 import LoadingView from "./LoadingView";
@@ -21,11 +20,6 @@ export const AchievementsView = () => {
     const [getAchievementsByHabit, { data: achData, loading: achLoading, error: achError }] = useLazyQuery(HABIT_ACHIEVEMENTS);
 
     const [getMilestonesByAchievement, { data: milData, loading: milLoading, error: milError }] = useLazyQuery(ACHIEVEMENT_MILESTONES);
-
-    console.log("Milestone error", JSON.stringify(milError));
-    console.log("Achivement error", JSON.stringify(achError));
-    console.log("Achievement data", JSON.stringify(achData));
-    console.log("Milestone data", JSON.stringify(milData));
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {

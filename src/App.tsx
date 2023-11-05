@@ -6,7 +6,7 @@ import {
 } from "@apollo/client";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { setContext } from "@apollo/client/link/context";
@@ -19,7 +19,6 @@ import MainPage from "./views/MainPage";
 import Notifications from "./views/Notifications";
 import StatisticsView from "./views/StatisticsView";
 import AchievementsView from "./views/AchievementsView";
-
 
 const httpLink = createHttpLink({
   //uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app/",
@@ -51,6 +50,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <ToastContainer />

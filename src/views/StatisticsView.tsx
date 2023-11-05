@@ -1,4 +1,3 @@
-import { LoginNavBar } from "../components/LoginNavBar";
 import BlueButton from "../components/BlueButton";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { HABITS_BY_USER, GET_MEASURE_HABIT_STATISTICS, GET_YN_HABIT_STATISTICS } from "../graphql/Queries";

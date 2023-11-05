@@ -1,6 +1,10 @@
+import { OverlayTrigger } from 'react-bootstrap';
+
 import { Habit } from "../../typeDefs";
 import YesNoCheckbox from "./YesNoCheckbox";
 import InputMeasurableField from "./InputMeasurableField";
+
+import "./../../styles/MainTable.css";
 
 interface MainTableRowProps {
   habit: Habit;
@@ -33,9 +37,37 @@ const MainTableRow = ({ habit, last7Days }: MainTableRowProps) => {
 
   return (
     <tr key={habit.hab_id}>
-      <th>{habit.hab_name}</th>
+      <th>
+        <OverlayTrigger
+          placement='auto'
+          delay={{ show: 250, hide: 400 }}
+          overlay={
+            (props) =>
+            (
+              <div
+                {...props}
+                className='habitus-habit-data-container'
+                style={{
+                  ...props.style,
+                  borderColor: `#${habit.hab_color}`
+                }}
+              >
+                {
+                  habit.hab_is_yn ?
+                    <div><b>Yes/No Habit</b></div> :
+                    <div><b>Measurable Habit</b></div>
+                }
+                <div><b>Description</b>: {habit.hab_description}</div>
+                <div><b>Goal</b>: {habit.hab_goal} {habit.hab_units}</div>
+              </div>
+            )
+          }
+        >
+          <div>{habit.hab_name}</div>
+        </OverlayTrigger>
+      </th >
       {RenderRowData()}
-    </tr>
+    </tr >
   );
 };
 

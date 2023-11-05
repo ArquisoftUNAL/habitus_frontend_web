@@ -1,19 +1,29 @@
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
+import Modal from "react-modal";
 import Heart from "react-animated-heart";
+import { toast } from "react-toastify";
 import { CREATE_HABIT } from "../graphql/Mutations";
 import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import { NavBar } from "../components/NavBar";
 import "../styles/CreateHabitForm.css";
 import { GET_CATEGORIES } from "../graphql/HabitsQueries";
 import LoadingView from "./LoadingView";
+import BlueButton from "../components/BlueButton";
+import MedicalCentersView from "./MedicalCenters";
 
 function CreateHabitForm() {
+
+  const navigate = useNavigate();
+
   const [habitType, setHabitType] = useState("Yes / No"); // State for selected radio button
+  const [location, setLocation] = useState(""); // State for selected radio button
   const [isClick, setClick] = useState(false);
   const { register, handleSubmit } = useForm();
-  const [CreateHabit, { error }] = useMutation(CREATE_HABIT);
+  const [CreateHabit] = useMutation(CREATE_HABIT);
   const { loading: categoriesLoading, data: categoriesData } = useQuery(GET_CATEGORIES);
+  const [centersModalVisible, setCentersModalVisible] = useState(false);
 
   if (categoriesLoading) {
     return <LoadingView />;
@@ -26,7 +36,7 @@ function CreateHabitForm() {
   };
 
   const onSubmit = async (data: FieldValues) => {
-    const { name, description, frequency_type, color } = data;
+    const { name, description, frequency_type, color, category } = data;
     let { goal, units } = data;
     goal = parseInt(goal);
 
@@ -49,19 +59,44 @@ function CreateHabitForm() {
         units,
         goal,
         frequency_type,
-        category: "7ad4eb3a-9178-4e88-8bdd-84e65ee93cb2",
+        category,
+        location: location,
       },
+      onCompleted: () => {
+        toast.success("Habit created successfully!");
+        navigate("/");
+      },
+      onError: (error) => {
+        toast.error("Error creating habit: " + error.message);
+      }
     });
 
-    if (error) console.log(error);
 
-    // Redirect to home page
-    window.location.href = "/";
   };
 
   return (
     <div>
       <NavBar />
+
+      <Modal
+        isOpen={centersModalVisible}
+        onRequestClose={() => {
+          setCentersModalVisible(false);
+        }}
+        //style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <MedicalCentersView
+          onChoose={(location: string) => {
+            setLocation(location);
+            setCentersModalVisible(false);
+          }}
+
+          onClose={() => {
+            setCentersModalVisible(false);
+          }}
+        />
+      </Modal>
 
       <div className="form-type-selector" data-toggle="buttons">
         <label className="btn btn-type-selector">
@@ -91,9 +126,11 @@ function CreateHabitForm() {
           styles={"../styles/CreateHabitForm.css"}
         />
       </div>
-      <div className="row">
-        <div className="col-10 offset-1 text-center">
-          <form className="create-habit-form" onSubmit={handleSubmit(onSubmit)}>
+
+      <form className="create-habit-form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="row text-center">
+          <div className="col-12 col-sm-6 text-center">
+
             <div className="mb-3 create-habit-form__name">
               <label htmlFor="name" className="form-label">
                 Name
@@ -130,21 +167,23 @@ function CreateHabitForm() {
                     step="0.01"
                   />
                 </div>
-
-                <div className="mb-3 create-habit-form__units">
-                  <label htmlFor="units" className="form-label">
-                    Units
-                  </label>
-                  <input
-                    {...register("units")}
-                    id="units"
-                    type="text"
-                    className="form-control"
-                  />
-                </div>
               </div>
             ) : null}
 
+            <div className="mb-3 create-habit-form__units">
+              <label htmlFor="units" className="form-label">
+                Units
+              </label>
+              <input
+                {...register("units")}
+                id="units"
+                type="text"
+                className="form-control"
+              />
+            </div>
+          </div>
+
+          <div className="col-12 col-sm-6 text-center">
             <div className="mb-3 create-habit-form__frequency-type">
               <label htmlFor="frequency_type" className="form-label">
                 Frequency
@@ -171,15 +210,11 @@ function CreateHabitForm() {
               >
                 {
                   categories.map((category: any) => {
-                    return <option value={category.id} key={category.id}>
-                      {category.name}
+                    return <option value={category.cat_id} key={category.cat_id}>
+                      {category.cat_name}
                     </option>
                   })
                 }
-                <option value="Health">Health</option>
-                <option value="Wealth">Wealth</option>
-                <option value="Relationship">Relationship</option>
-                <option value="Personal Growth">Personal Growth</option>
               </select>
             </div>
 
@@ -195,13 +230,42 @@ function CreateHabitForm() {
               </select>
             </div>
 
-            <button className="btn btn-primary" type="submit">
-              Save
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+            <div className="mb-3 create-habit-form__location">
+              <label htmlFor="location" className="form-label">
+                Location
+              </label>
+              <div className="row">
+                <div className="col-12 col-sm-9">
+                  <input
+                    onChange={(e) => {
+                      setLocation(e.target.value);
+                    }}
+                    value={location}
+                    id="location"
+                    type="text"
+                    className="form-control"
+                  />
+                </div>
+                <div className="col-12 col-sm-3">
+                  <BlueButton
+                    caption="🏥"
+                    onClick={() => {
+                      setCentersModalVisible(true);
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <button className="col-2 offset-3 btn btn-primary" type="submit">
+            Save
+          </button>
+        </div >
+      </form >
+
+    </div >
   );
 }
 

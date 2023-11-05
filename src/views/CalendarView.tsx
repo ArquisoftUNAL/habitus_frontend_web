@@ -152,7 +152,6 @@ const BuildCalendarDays = ({
                                         const date_string = date.toISOString().split('T')[0];
 
                                         const matched_item = calendarData.find((item: any) => item.date == date_string);
-                                        console.log(matched_item);
 
                                         return (
                                             <div className='col-1' key={"wc_" + weekIndex + "_d_" + weeDayIndex}>

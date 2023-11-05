@@ -38,6 +38,7 @@ export const CREATE_HABIT = gql`
     $goal: Float!
     $frequency_type: String!
     $category: String!
+    $location: String!
   ) {
     addHabit(
       habit: {
@@ -50,6 +51,7 @@ export const CREATE_HABIT = gql`
         goal: $goal
         frequency_type: $frequency_type
         category: $category
+        location: $location
       }
     ) {
       id

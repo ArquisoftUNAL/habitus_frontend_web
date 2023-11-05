@@ -1,11 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 import logoImage from "../assets/Logo.svg";
 import userIcon from "../assets/user.png";
 import "../styles/NavBar.css";
 
 export const NavBar = () => {
+
+  const navigate = useNavigate();
+
   function HandleLogout() {
     localStorage.removeItem("x-auth-token");
-    window.location.href = "/login";
+    navigate("/login");
   }
 
   return (
