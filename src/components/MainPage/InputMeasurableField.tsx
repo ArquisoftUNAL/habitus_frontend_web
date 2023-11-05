@@ -1,72 +1,96 @@
-import { Habit } from "../../typeDefs";
+import { toast } from 'react-toastify';
+
+import { Habit, HabitData } from "../../typeDefs";
 import {
   ADD_HABIT_DATA,
   DELETE_HABIT_DATA,
   UPDATE_HABIT_DATA,
 } from "../../graphql/Mutations";
-import { useEffect, useState } from "react";
-import { GET_HABIT_OCURRENCES } from "../../graphql/Queries";
-import { useMutation, useQuery } from "@apollo/client";
+import { useState } from "react";
+import { useMutation } from "@apollo/client";
 import { dayInLast2Days } from "../../utilities/dayInLast2Days";
 
 interface Props {
   habit: Habit;
+  habitData: HabitData | null;
   day: string;
 }
 
-const InputMeasurableField = ({ habit, day }: Props) => {
+const InputMeasurableField = ({ habit, day, habitData }: Props) => {
   const [addHabitData] = useMutation(ADD_HABIT_DATA);
   const [deleteHabitData] = useMutation(DELETE_HABIT_DATA);
   const [updateHabitData] = useMutation(UPDATE_HABIT_DATA);
-  const [text, setText] = useState("");
 
-  const { data: habitdataByHabit, loading } = useQuery(GET_HABIT_OCURRENCES, {
-    variables: {
-      habitId: habit.hab_id,
-      startDate: day,
-      endDate: day,
-    },
-  });
+  const [habitDataState, setHabitDataState] = useState(habitData);
+  const [enabled, setEnabled] = useState(true);
 
-  // Effect for updating the state variable of text input
-  useEffect(() => {
-    if (!loading) {
-      setText(habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount || "");
-    }
-  }, [habitdataByHabit, loading]);
+  const present = habitDataState !== null && habitDataState !== undefined;
+  const [text, setText] = useState(present ? habitDataState?.hab_dat_amount : "");
 
   function HandleClick() {
-    if (!loading) {
-      const habitDataExists =
-        habitdataByHabit?.habitdataByHabit[0] !== undefined;
+    if (dayInLast2Days(day)) {
+      if (!present) {
+        addHabitData({
+          variables: {
+            amount: parseFloat(text),
+            habit_id: habit.hab_id,
+            collected_at: day,
+          },
+          onCompleted: (data) => {
+            setEnabled(true);
+            setHabitDataState(data.addHabitdata.data);
 
-      if (dayInLast2Days(day)) {
-        if (!habitDataExists) {
-          addHabitData({
+            toast.success("Habit data added successfully!");
+          },
+          onError: (e) => {
+            setEnabled(true);
+
+            toast.error("Error adding habit data!");
+          },
+        });
+      } else {
+        if (text === "" || text === "0") {
+          deleteHabitData({
             variables: {
-              amount: parseFloat(text),
-              habit_id: habit.hab_id,
-              collected_at: day,
+              datId: habitDataState?.hab_dat_id,
+            },
+            onCompleted: () => {
+              setEnabled(true);
+              setHabitDataState(null);
+
+              toast.success("Habit data deleted successfully!");
+            },
+            onError: (e) => {
+              console.log(e);
+              setEnabled(true);
+
+              toast.error("Error deleting habit data!");
             },
           });
         } else {
-          if (text === "" || text === "0") {
-            deleteHabitData({
-              variables: {
-                datId: habitdataByHabit?.habitdataByHabit[0]?.hab_dat_id,
-              },
-            });
-          } else {
-            updateHabitData({
-              variables: {
-                datId: habitdataByHabit?.habitdataByHabit[0]?.hab_dat_id,
-                amount: parseFloat(text),
-              },
-            });
-          }
+          updateHabitData({
+            variables: {
+              datId: habitDataState?.hab_dat_id,
+              amount: parseFloat(text),
+            },
+            onCompleted: (data) => {
+              setEnabled(true);
+              setHabitDataState(data.updateHabitdata.data);
+
+              toast.success("Habit data updated successfully!");
+            },
+            onError: (e) => {
+              console.log(e);
+              setEnabled(true);
+
+              toast.error("Error updating habit data!");
+            },
+          });
         }
       }
+      setEnabled(false);
     }
+
   }
 
   return (
@@ -76,15 +100,15 @@ const InputMeasurableField = ({ habit, day }: Props) => {
         type="number"
         className="form-control"
         step={0.1}
-        disabled={!dayInLast2Days(day)}
+        disabled={!dayInLast2Days(day) || !enabled}
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
       <button
         className="habitus-button btn"
-        disabled={!dayInLast2Days(day)}
+        disabled={!dayInLast2Days(day) || !enabled}
         onClick={HandleClick}
-        style={{ fontSize: "0.8rem", padding: "0.05rem"}}
+        style={{ fontSize: "0.8rem", padding: "0.05rem" }}
       >
         Ok
       </button>

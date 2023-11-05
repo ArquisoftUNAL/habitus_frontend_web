@@ -1,64 +1,68 @@
-import { useEffect, useState } from "react";
-import { Habit } from "../../typeDefs";
-import { useMutation, useQuery } from "@apollo/client";
+import { toast } from 'react-toastify';
+
+import { useState } from "react";
+import { Habit, HabitData } from "../../typeDefs";
+import { useMutation, } from "@apollo/client";
 import { ADD_HABIT_DATA, DELETE_HABIT_DATA } from "../../graphql/Mutations";
-import { GET_HABIT_OCURRENCES } from "../../graphql/Queries";
 import { dayInLast2Days } from "../../utilities/dayInLast2Days";
 
 interface Props {
   habit: Habit;
   day: string;
+  habitData: HabitData | null;
 }
 
-const YesNoCheckbox = ({ habit, day }: Props) => {
+const YesNoCheckbox = ({ habit, day, habitData }: Props) => {
   const [addHabitData] = useMutation(ADD_HABIT_DATA);
   const [deleteHabitData] = useMutation(DELETE_HABIT_DATA);
+  const [habitDataState, setHabitDataState] = useState(habitData);
+  const [enabled, setEnabled] = useState(true);
 
-  // First retrieve the habit data for the day, this will only return one occurrence (if it exists)
-
-  const { data: habitdataByHabit, loading } = useQuery(GET_HABIT_OCURRENCES, {
-    variables: {
-      habitId: habit.hab_id,
-      startDate: day,
-      endDate: day,
-    },
-  });
-
-  const [checked, setChecked] = useState(false);
-
-  // Effect for updating the state variable of checkbox
-  useEffect(() => {
-    if (!loading) {
-      const isHabDatAmountChecked =
-        habitdataByHabit?.habitdataByHabit[0]?.hab_dat_amount !== undefined;
-
-      setChecked(isHabDatAmountChecked);
-    }
-  }, [habitdataByHabit, loading]);
+  const checked = habitDataState !== null && habitDataState !== undefined;
 
   function HandleClick() {
-    setChecked(!checked);
-    if (!loading) {
-      const habitDataExists =
-        habitdataByHabit?.habitdataByHabit[0] !== undefined;
+    if (dayInLast2Days(day)) {
+      if (!habitDataState) {
+        addHabitData({
+          variables: {
+            amount: 1.0,
+            habit_id: habit.hab_id,
+            collected_at: day,
+          },
+          onCompleted: (data) => {
+            setEnabled(true);
+            setHabitDataState(data.addHabitdata.data);
 
-      if (dayInLast2Days(day)) {
-        if (!habitDataExists) {
-          addHabitData({
-            variables: {
-              amount: 1.0,
-              habit_id: habit.hab_id,
-              collected_at: day,
-            },
-          });
-        } else {
-          deleteHabitData({
-            variables: {
-              datId: habitdataByHabit?.habitdataByHabit[0]?.hab_dat_id,
-            },
-          });
-        }
+            toast.success("Habit data added successfully!");
+          },
+          onError: (e) => {
+            console.log(e)
+            setEnabled(true);
+
+            toast.error("Error adding habit data!");
+          }
+        });
+      } else {
+        deleteHabitData({
+          variables: {
+            datId: habitDataState.hab_dat_id,
+          },
+          onCompleted: () => {
+            setEnabled(true);
+            setHabitDataState(null);
+
+            toast.success("Habit data deleted successfully!");
+          },
+          onError: (e) => {
+            console.log(e)
+            setEnabled(true);
+
+            toast.error("Error deleting habit data!");
+          }
+        });
       }
+
+      setEnabled(false);
     }
   }
 
@@ -69,8 +73,8 @@ const YesNoCheckbox = ({ habit, day }: Props) => {
         type="checkbox"
         id="flexCheckDefault"
         checked={checked}
-        onClick={HandleClick}
-        disabled={!dayInLast2Days(day)}
+        onChange={HandleClick}
+        disabled={!dayInLast2Days(day) || !enabled}
       />
     </td>
   );

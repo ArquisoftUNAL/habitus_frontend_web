@@ -11,9 +11,13 @@ const MainPage = () => {
         Main Page
       </div>
       <div className="habitus-separator"></div>
-      <a className="btn" href="/addHabit" style={{ marginTop: "20px", color: "white" }}>
-        Add habit
-      </a>
+      <div className="row">
+        <div className="col-4 offset-4 text-center">
+          <a className="btn" href="/addHabit" style={{ marginTop: "20px", color: "white" }}>
+            Add habit
+          </a>
+        </div>
+      </div>
       <MainPageTable />
     </div>
   );
