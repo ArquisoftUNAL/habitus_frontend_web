@@ -42,7 +42,7 @@ const InputMeasurableField = ({ habit, day, habitData }: Props) => {
 
             toast.success("Habit data added successfully!");
           },
-          onError: (e) => {
+          onError: () => {
             setEnabled(true);
 
             toast.error("Error adding habit data!");

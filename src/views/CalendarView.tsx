@@ -251,8 +251,8 @@ interface CalendarDay {
 
 const CalendarView: React.FC = () => {
 
-    const [period, setPeriod] = React.useState('month');
-    const [selectedDayData, setSelectedDayData] = React.useState<CalendarDay | null>(null);
+    const [period, _] = React.useState('month');
+    const [__, setSelectedDayData] = React.useState<CalendarDay | null>(null);
     const [habit, setHabit] = React.useState<any>(null);
 
     const current_date = new Date();
@@ -353,7 +353,7 @@ const CalendarView: React.FC = () => {
                         </div>
                         <div className='col-12 habitus-spacing' />
                         {
-                            habits.map((item: any, index: number) => {
+                            habits.map((item: any) => {
                                 return (
                                     <div className='col-12'
                                         onClick={() => {

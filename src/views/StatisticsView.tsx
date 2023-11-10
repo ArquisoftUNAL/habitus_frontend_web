@@ -16,10 +16,10 @@ export const StatisticsView = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { data, loading, error } = useQuery(HABITS_BY_USER);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [getMeasureHabitStatistics, { data: measureData, loading: measureLoading, error: measureError }] = useLazyQuery(GET_MEASURE_HABIT_STATISTICS);
+    const [getMeasureHabitStatistics, { data: measureData }] = useLazyQuery(GET_MEASURE_HABIT_STATISTICS);
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [getYNHabitStatistics, { data: ynData, loading: ynLoading, error: ynError }] = useLazyQuery(GET_YN_HABIT_STATISTICS);
+    const [getYNHabitStatistics, { data: ynData }] = useLazyQuery(GET_YN_HABIT_STATISTICS);
 
 
     // eslint-disable-next-line react-hooks/rules-of-hooks

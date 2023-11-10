@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { USER_NOTIFICATIONS } from "../graphql/Queries";
 import { useQuery } from "@apollo/client";
 import '../styles/Notifications.css';

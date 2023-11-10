@@ -19,10 +19,14 @@ import MainPage from "./views/MainPage";
 import Notifications from "./views/Notifications";
 import StatisticsView from "./views/StatisticsView";
 import AchievementsView from "./views/AchievementsView";
+import { config } from "./config";
 
+console.log(config.TARGET_GATEWAY);
 const httpLink = createHttpLink({
   //uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app/",
-  uri: "http://localhost:4000/",
+  //uri: "http:///6.tcp.ngrok.io:13955/",
+  //uri: "https://529c-186-170-217-217.ngrok-free.app"
+  uri: config.TARGET_GATEWAY
 });
 
 const authLink = setContext((_, { headers }) => {

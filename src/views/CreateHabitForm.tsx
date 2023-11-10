@@ -22,11 +22,15 @@ function CreateHabitForm() {
   const [isClick, setClick] = useState(false);
   const { register, handleSubmit } = useForm();
   const [CreateHabit] = useMutation(CREATE_HABIT);
-  const { loading: categoriesLoading, data: categoriesData } = useQuery(GET_CATEGORIES);
+  const { loading: categoriesLoading, error: categoriesError, data: categoriesData } = useQuery(GET_CATEGORIES);
   const [centersModalVisible, setCentersModalVisible] = useState(false);
 
   if (categoriesLoading) {
     return <LoadingView />;
+  }
+
+  if (categoriesError) {
+    return <div>Error loading categories</div>
   }
 
   const categories = categoriesData.categories;
