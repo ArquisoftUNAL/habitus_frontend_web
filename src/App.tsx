@@ -1,7 +1,7 @@
 import {
   ApolloClient,
   ApolloProvider,
-  createHttpLink,
+  HttpLink,
   InMemoryCache,
 } from "@apollo/client";
 
@@ -21,12 +21,15 @@ import StatisticsView from "./views/StatisticsView";
 import AchievementsView from "./views/AchievementsView";
 import { config } from "./config";
 
-console.log(config.TARGET_GATEWAY);
-const httpLink = createHttpLink({
+console.log("Gateway: ", config.TARGET_GATEWAY);
+const httpLink = new HttpLink({
   //uri: "https://habitus-gateway-ik25vlw3ta-rj.a.run.app/",
   //uri: "http:///6.tcp.ngrok.io:13955/",
   //uri: "https://529c-186-170-217-217.ngrok-free.app"
-  uri: config.TARGET_GATEWAY
+  uri: config.TARGET_GATEWAY,
+  fetchOptions: {
+    mode: "no-cors"
+  }
 });
 
 const authLink = setContext((_, { headers }) => {
