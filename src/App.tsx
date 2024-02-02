@@ -58,7 +58,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <ToastContainer />
-      <Router>
+      <Router basename="habitus_frontend_web">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/addHabit" element={<CreateHabitForm />} />
